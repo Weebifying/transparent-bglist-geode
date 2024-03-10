@@ -1,0 +1,26 @@
+{
+	"geode": "2.0.0-beta.21",
+	"gd": {
+		"win": "2.204",
+		"android": "2.205",
+		"mac": "2.200"
+	},
+	"version": "v1.0.0",
+	"id": "weebify.transparent_bglist",
+	"name": "Transparent BG/List",
+	"developer": "Weebify",
+	"description": "aa",
+	"tags": ["Interface"],
+	"settings": {
+		"bg": {
+			"name": "Transparent BG",
+			"type": "bool",
+			"default": true
+		},
+		"list": {
+			"name": "Transparent List",
+			"type": "bool",
+			"default": true
+		}
+	}
+}
