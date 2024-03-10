@@ -1,12 +1,6 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/CreatorLayer.hpp>
-#include <Geode/modify/LevelBrowserLayer.hpp>
-#include <Geode/modify/LevelInfoLayer.hpp>
-#include <Geode/modify/LevelSearchLayer.hpp>
-#include <Geode/modify/LevelListLayer.hpp>
-#include <Geode/modify/LeaderboardsLayer.hpp>
-#include <Geode/modify/EditLevelLayer.hpp>
 #include <Geode/modify/LevelSelectLayer.hpp>
+#include <Geode/modify/CCDirector.hpp>
 
 using namespace geode::prelude;
 
@@ -36,72 +30,20 @@ void uncolorBG(CCLayer* layer) {
 	}
 }
 
-class $modify(CreatorLayer) {
-	bool init() {
-		if (!CreatorLayer::init()) return false;
+class $modify(CCDirector) {
+	void willSwitchToScene(CCScene* scene) {
+		CCDirector::willSwitchToScene(scene);
 
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
+		if (getChildOfType<CCLayer>(scene, 0)) {
+			if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(getChildOfType<CCLayer>(scene, 0));
+		}
 	}
 };
 
-class $modify(LevelBrowserLayer) {
-	bool init(GJSearchObject* p0) {
-		if (!LevelBrowserLayer::init(p0)) return false;
+class $modify(LevelSelectLayer) {
+	void scrollLayerMoved(CCPoint p0) {
+		LevelSelectLayer::scrollLayerMoved(p0);
 
 		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
-	}
-};
-
-class $modify(LevelInfoLayer) {
-	bool init(GJGameLevel* p0, bool p1) {
-		if (!LevelInfoLayer::init(p0, p1)) return false;
-
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
-	}
-};
-
-class $modify(LevelSearchLayer) {
-	bool init(int p0) {
-		if (!LevelSearchLayer::init(p0)) return false;
-
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
-	}
-};
-
-class $modify(LevelListLayer) {
-	bool init(GJLevelList* p0) {
-		if (!LevelListLayer::init(p0)) return false;
-
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
-	}
-};
-
-class $modify(LeaderboardsLayer) {
-	bool init(LeaderboardState p0) {
-		if (!LeaderboardsLayer::init(p0)) return false;
-
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
-	}
-};
-
-class $modify(EditLevelLayer) {
-	bool init(GJGameLevel* p0) {
-		if (!EditLevelLayer::init(p0)) return false;
-
-		if (Mod::get()->getSettingValue<bool>("bg")) uncolorBG(this);
-
-		return true;
 	}
 };
